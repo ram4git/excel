@@ -53,3 +53,26 @@ export function getTeamsArticles (teamId) {
     setTimeout(() => res(generateTeamsArticles(teamId)), 700)
   })
 }
+
+export function processBrokenData(data) {
+  const { paddyInTons, moisture, rejectedIn36Secs, smallBroken, bigBroken, chaki } = data;
+  const ricePcBasedOnMoisterPc = 68.21-(moisture-14)*1.21;
+  const rejectedIn24Hrs = rejectedIn36Secs/36*86.4;
+  const pcRejected = rejectedIn24Hrs*100/paddyInTons;
+
+  const riceInKg = 75*ricePcBasedOnMoisterPc/100;
+  const rejectedInKg = 75*pcRejected/100;
+  const bigBrokenInKg = riceInKg*bigBroken/100;
+  const smallBrokenInKg = riceInKg*smallBroken/100
+  const chakiInKg = riceInKg*chaki/100;
+  const headRiceInKg = riceInKg - (rejectedInKg+bigBrokenInKg+smallBrokenInKg+chakiInKg);
+
+  return {
+    riceInKg: riceInKg.toFixed(3),
+    rejectedInKg: rejectedInKg.toFixed(3),
+    bigBrokenInKg: bigBrokenInKg.toFixed(3),
+    smallBrokenInKg: smallBrokenInKg.toFixed(3),
+    chakiInKg: chakiInKg.toFixed(3),
+    headRiceInKg: headRiceInKg.toFixed(3)
+  };
+}

@@ -3,6 +3,8 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 import Navbar from './Navbar'
 import Loading from './Loading'
 import DynamicImport from './DynamicImport'
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+
 
 const Home = (props) => (
   <DynamicImport load={() => import('./Home')}>
@@ -12,8 +14,8 @@ const Home = (props) => (
   </DynamicImport>
 )
 
-const Requests = (props) => (
-  <DynamicImport load={() => import('./Requests')}>
+const BrokenCalculation = (props) => (
+  <DynamicImport load={() => import('./BrokenCalculation')}>
     {(Component) => Component === null
       ? <Loading />
       : <Component {...props} />}
@@ -47,19 +49,21 @@ const Articles = (props) => (
 class App extends Component {
   render() {
     return (
-      <Router basename={'/'}>
-        <div>
-          <Navbar />
+      <MuiThemeProvider>
+        <Router basename={'/'}>
+          <div>
+            <Navbar />
 
-          <Switch>
-            <Route path='/' exact component={Home} />
-            <Route path='/requests' component={Requests} />
-            <Route path='/settings' component={Settings} />
-            <Route path='/request/:id' exact component={Request} />
-            <Route render={() => <h1 className='text-center'>Four oh Four.</h1>} />
-          </Switch>
-        </div>
-      </Router>
+            <Switch>
+              <Route path='/' exact component={Home} />
+              <Route path='/broken' component={BrokenCalculation} />
+              <Route path='/settings' component={Settings} />
+              <Route path='/request/:id' exact component={Request} />
+              <Route render={() => <h1 className='text-center'>Four oh Four.</h1>} />
+            </Switch>
+          </div>
+        </Router>
+      </MuiThemeProvider>
     )
   }
 }

@@ -10,7 +10,7 @@ import {
   CSSTransition,
 } from 'react-transition-group'
 
-export default class Requests extends Component {
+export default class BrokenCalculation extends Component {
   state = {
     players: [],
     loading: true,
@@ -21,6 +21,7 @@ export default class Requests extends Component {
       ? this.fetchPlayers(parse(location.search).teamId)
       : this.fetchPlayers()
   }
+
   fetchPlayers = (teamId) => {
     getPlayers(teamId)
       .then((players) => this.setState(() => ({
@@ -28,6 +29,7 @@ export default class Requests extends Component {
         players,
       })))
   }
+
   render () {
     const { players, loading } = this.state
     const { match, location } = this.props
@@ -55,7 +57,7 @@ export default class Requests extends Component {
 
           return (
             <TransitionGroup className='panel'>
-              <CSSTransition key={location.key} classNames='fade' timeout={250}>
+              <CSSTransition key={location.key} classNames='fade' timeout={1000}>
                 <div className='panel'>
                   <img className='avatar' src={`${avatar}`} alt={`${name}'s avatar`} />
                   <h1 className='medium-header'>{name}</h1>

@@ -4,7 +4,7 @@ export default class DynamicImport extends Component {
   state = {
     component: null
   }
-  componentWillMount() {
+  componentDidMount() {
     this.props.load()
       .then((mod) => this.setState(() => ({
         component: mod.default

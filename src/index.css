@@ -33,6 +33,12 @@ a {
   margin: 20px 0;
 }
 
+.small-header {
+  font-size: 30px;
+  text-align: center;
+  margin: 10px 0;
+}
+
 .header {
   margin: 20px 0;
   font-weight: 300;
@@ -195,6 +201,10 @@ a {
     font-size: 40px;
   }
 
+  .small-header {
+    font-size: 30px;
+  }
+
   .header {
     font-size: 25px;
     margin: 10px 0;
@@ -243,4 +253,40 @@ a {
 
 .fade-exit {
   display: none;
+}
+
+.cartTitle {
+  background: #16a085;
+  text-align: center;
+  padding: 0;
+}
+
+.column-row {
+  width: 50%;
+  margin: auto;
+  text-align: center;
+}
+
+.select-field {
+  text-align: left;
+}
+
+.card {
+  margin-top: 20px;
+}
+
+table > input {
+  display: none;
+}
+
+.ui.statistic .value{
+  color: #16a085 !important;
+}
+
+.ui.statistic .label{
+  color: #2980b9 !important;
+}
+
+.priceCard {
+  background-color: #ecf0f1 !important;
 }
