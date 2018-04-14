@@ -4,10 +4,12 @@
   "private": true,
   "homepage": "https://tylermcginnis.com/projects/router-league/",
   "dependencies": {
+    "immutability-helper": "^2.6.6",
     "material-ui": "^0.20.0",
     "prop-types": "^15.6.0",
     "query-string": "^5.0.1",
     "react": "^16.3.0",
+    "react-data-grid": "^3.0.11",
     "react-dom": "^16.3.0",
     "react-router-dom": "^4.2.2",
     "react-scripts": "1.0.17",

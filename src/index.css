@@ -290,3 +290,29 @@ table > input {
 .priceCard {
   background-color: #ecf0f1 !important;
 }
+
+.selections {
+  display: flex;
+  justify-content: space-between;
+}
+
+.react-grid-Container {
+  width: 80% !important;
+  margin: auto;
+}
+
+.distanceMatrix {
+  text-align: center;
+}
+
+
+
+.btnGroup {
+  display: flex;
+  justify-content: space-between;
+  width: 50%;
+  margin: auto;
+  margin-bottom: 20px;
+  margin-top: 20px;
+
+}

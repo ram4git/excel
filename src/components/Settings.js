@@ -39,11 +39,12 @@ export default class Settings extends Component {
        bigBroken: 10,
        chaki: 1,
        pricePerKg: 20,
+       variety: 'bpt'
     };
   }
 
 
-  handleMoistureChange = (event, index, value) => this.setState({moisture: value});
+  handleDropdownChange = (key, event, index, value) => this.setState({[key]: value});
 
   onFieldChange(e, newValue) {
     const inputName = e.target.name;
@@ -75,7 +76,7 @@ export default class Settings extends Component {
     });
   }
 
-  render () {
+  render() {
     const { loading } = this.state
 
 
@@ -85,12 +86,53 @@ export default class Settings extends Component {
           Broken Calculation
         </h1>
         { this.renderErrorMsg() }
+				{ this.renderSelections() }
         { this.renderSettings() }
         { this.renderStats() }
         { this.renderWeights() }
+        { this.renderPriceMatrix() }
       </div>
     )
   }
+
+  renderPriceMatrix() {
+    return (
+      <Card className='card'>
+        <CardTitle title="Price Matrix"  className='cartTitle'/>
+        <CardText>PRICE MATRIX</CardText>
+      </Card>
+    );
+  }
+
+
+	renderSelections() {
+		return (
+			<Card className='card'>
+				<CardTitle title="Selections"  className='cartTitle'/>
+				<CardText>
+          <div className='container two-column selections'>
+            <SelectField
+              floatingLabelText='Rice Variety'
+              value={this.state.variety}
+              onChange={this.handleDropdownChange.bind(this, 'variety')}
+              className='select-field' >
+              <MenuItem key={1} value='bpt' primaryText={`BPT`} />
+              <MenuItem key={2} value='swarna' primaryText={`SWARNA`} />
+            </SelectField>
+            { this.renderMoistureOptions() }
+            <TextField
+              hintText='1400'
+              floatingLabelText='Price/75KG'
+              errorStyle={{color: '#7f8c8d'}}
+              onChange={ this.on75KgPriceChange.bind(this) }
+              name='pricePer75'
+              value={ this.state.pricePerKg * 75}
+            />
+          </div>
+				</CardText>
+			</Card>
+		);
+	}
 
   renderErrorMsg() {
     if(this.state.errorMsg) {
@@ -154,17 +196,6 @@ export default class Settings extends Component {
             name='rejectedIn36Secs'
             value={ this.state.rejectedIn36Secs}
           /><br />
-          { this.renderMoistureOptions() }
-          <br />
-          <TextField
-            hintText='1400'
-            floatingLabelText='Price/75KG'
-            errorText={`not required if 100KG price is entered`}
-            errorStyle={{color: '#7f8c8d'}}
-            onChange={ this.on75KgPriceChange.bind(this) }
-            name='pricePer75'
-            value={ this.state.pricePerKg * 75}
-          /><br />
         </div>
         <div className='column-row'>
           <TextField
@@ -187,15 +218,6 @@ export default class Settings extends Component {
             onChange={ this.onFieldChange.bind(this) }
             name='chaki'
             value={ this.state.chaki}
-          /><br />
-          <TextField
-            hintText='2100'
-            floatingLabelText='Price/100KG'
-            errorText={`not required if 75KG price is entered`}
-            errorStyle={{color: '#7f8c8d'}}
-            onChange={ this.on100KgPriceChange.bind(this) }
-            name='pricePer100'
-            value={ this.state.pricePerKg * 100}
           /><br />
         </div>
       </div>
@@ -290,8 +312,7 @@ export default class Settings extends Component {
       <SelectField
         floatingLabelText='Moisture %'
         value={this.state.moisture}
-
-        onChange={this.handleMoistureChange}
+        onChange={this.handleDropdownChange.bind(this,'moisture')}
         className='select-field'
       >
       { menuItemArray }
