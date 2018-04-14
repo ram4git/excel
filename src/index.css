@@ -297,7 +297,6 @@ table > input {
 }
 
 .react-grid-Container {
-  width: 80% !important;
   margin: auto;
 }
 
@@ -310,7 +309,6 @@ table > input {
 .btnGroup {
   display: flex;
   justify-content: space-between;
-  width: 50%;
   margin: auto;
   margin-bottom: 20px;
   margin-top: 20px;
