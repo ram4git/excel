@@ -2,7 +2,7 @@ export default {
 	bpt: {
 		14: {
 			rice: 36.96,
-			rejection: 3.26,
+			rejected: 3.26,
 			chaki: 0.390,
 			bigBroken: 7.82,
 			smallBroken: 2.73,
@@ -11,7 +11,7 @@ export default {
 		},
 		17: {
 			rice: 34.87,
-			rejection: 2.1,
+			rejected: 2.1,
 			chaki: 0.76,
 			bigBroken: 7.87,
 			smallBroken: 2.79,
@@ -20,7 +20,7 @@ export default {
 		},
 		20: {
 			rice: 33.34,
-			rejection: 1.4,
+			rejected: 1.4,
 			chaki: 0.24,
 			bigBroken: 8.41,
 			smallBroken: 3.24,
@@ -29,7 +29,7 @@ export default {
 		},
 		22: {
 			rice: 35.45,
-			rejection: 3.67,
+			rejected: 3.67,
 			chaki: 0.38,
 			bigBroken: 4.51,
 			smallBroken: 1.57,
@@ -38,7 +38,7 @@ export default {
 		},
 		25: {
 			rice: 32.12,
-			rejection: 4.09,
+			rejected: 4.09,
 			chaki: 0.42,
 			bigBroken: 4.36,
 			smallBroken: 1.36,

@@ -37,31 +37,32 @@ export default class Settings extends Component {
     super(props);
     this.state = {
       loading: true,
-       paddyInTons: 193,
-       moisture: MOISTURE_START_INDEX,
-       rejectedIn36Secs: 3.8,
-       rice: 36.96,
-       rejected: 3.26,
-       smallBroken: 2.73,
-       bigBroken: 7.82,
-       chaki: 0.39,
-       bran: 5.81,
-       bran2: 0.89,
-       rejectedPrice: 2850,
-       smallBrokenPrice: 1750,
-       bigBrokenPrice: 2300,
-       chakiPrice: 1350,
-       branPrice: 1850,
-       bran2Price: 1500,
-       price75Kg: 1580,
-       variety: 'bpt',
-       riceBagCapacity: 25,
-       brokenBagCapacity: 50,
-       millingBagCapacity: 100,
-       riceBagPrice: 13,
-       brokenBagPrice: 10,
-       millingBagPrice: 100,
-       taxPc: 5,
+      variety: 'bpt',
+      paddyInTons: 193,
+      moisture: MOISTURE_START_INDEX,
+      rejectedIn36Secs: 3.8,
+      rice: 36.96,
+      rejected: 3.26,
+      smallBroken: 2.73,
+      bigBroken: 7.82,
+      chaki: 0.39,
+      bran: 5.81,
+      bran2: 0.89,
+      rejectedPrice: 2850,
+      smallBrokenPrice: 1750,
+      bigBrokenPrice: 2300,
+      chakiPrice: 1350,
+      branPrice: 1850,
+      bran2Price: 1500,
+      price75Kg: 1580,
+      variety: 'bpt',
+      riceBagCapacity: 25,
+      brokenBagCapacity: 50,
+      millingBagCapacity: 100,
+      riceBagPrice: 13,
+      brokenBagPrice: 10,
+      millingBagPrice: 100,
+      taxPc: 5,
     };
   }
 
@@ -70,6 +71,7 @@ export default class Settings extends Component {
 
   handleMoistureChange(key, event, index, value) {
     const moistureData = Moisture;
+
     console.log(JSON.stringify(moistureData[this.state.variety][value], null, 2));
 
     this.setState({
@@ -735,5 +737,4 @@ export default class Settings extends Component {
     );
   }
 
-  render
 }

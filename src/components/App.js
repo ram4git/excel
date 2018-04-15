@@ -30,8 +30,8 @@ const Settings = (props) => (
   </DynamicImport>
 )
 
-const Request = (props) => (
-  <DynamicImport load={() => import('./Request')}>
+const ReverseCalcuation = (props) => (
+  <DynamicImport load={() => import('./ReverseCalculation')}>
     {(Component) => Component === null
       ? <Loading />
       : <Component {...props} />}
@@ -57,6 +57,7 @@ class App extends Component {
             <Switch>
               <Route path='/' exact component={Home} />
               <Route path='/broken' component={BrokenCalculation} />
+							<Route path='/reverse' component={ReverseCalcuation} />
               <Route path='/settings' component={Settings} />
               <Route path='/distances' component={Distances} />
               <Route path='/request/:id' exact component={Request} />
