@@ -23,8 +23,8 @@ export default class DistanceMatrix extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			rows: Rows,
-			columns: Columns,
+			rows: JSON.parse(localStorage.getItem('rows')) || Rows,
+			columns: JSON.parse(localStorage.getItem('columns')) || Columns,
 			action: 'add',
 			cityType: 'saleCity',
 			open: false,
@@ -111,6 +111,15 @@ export default class DistanceMatrix extends Component {
 		}
 	}
 
+	persistState() {
+		localStorage.setItem('rows', JSON.stringify(this.state.rows));
+		localStorage.setItem('columns', JSON.stringify(this.state.columns));
+		this.setState({
+			snackMessage: `Settings have been saved!`,
+			open: true,
+		});
+	}
+
 
 	render() {
 		const { rows, columns } = this.state;
@@ -148,14 +157,14 @@ export default class DistanceMatrix extends Component {
 									value={this.state.cityType}
 									onChange={this.handleDropdownChange.bind(this, 'cityType')}
 									className='select-field' >
-									<MenuItem key={1} value='saleCity' primaryText={`Sale City`} />
-									<MenuItem key={2} value='sourceCity' primaryText={`Sourcing City`} />
+									<MenuItem key={1} value='saleCity' primaryText={`Destination Market`} />
+									<MenuItem key={2} value='sourceCity' primaryText={`Origin City`} />
 								</SelectField>
 							</div>
 							<div className='btnGroup'>
 								<RaisedButton label='Perform Action on City Type'
 									primary={true}
-									fullWidth={true}
+										fullWidth={true}
 									onClick={this.performSelectedAction.bind(this)} />
 							</div>
 							<Divider horizontal>Change Freight Charge</Divider>
@@ -170,7 +179,8 @@ export default class DistanceMatrix extends Component {
 								onGridRowsUpdated={this.handleGridRowsUpdated}
 								minHeight={500} />
 								<div className='btnGroup'>
-							    <RaisedButton label='Save' primary={true}  fullWidth={true}/>
+							    <RaisedButton label='Save' primary={true}  fullWidth={true}
+									onClick={ this.persistState.bind(this) }/>
 								</div>
 						</div>
 					</CardText>

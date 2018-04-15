@@ -1,4 +1,5 @@
 export default [
+	{ saleCity: 'priceSource',peddapuram: '1', nizamabad: '2', repalle: '3', miryalaguda: '4', karnool: '5', bihar: '6' },
 	{ saleCity: 'Vizag', 			peddapuram: '1', nizamabad: '2', repalle: '3', miryalaguda: '4', karnool: '5', bihar: '6' },
 	{ saleCity: 'Vijayawada',	peddapuram: '1', nizamabad: '2', repalle: '3', miryalaguda: '4', karnool: '5', bihar: '6' },
 	{ saleCity: 'Hyederabad',	peddapuram: '1', nizamabad: '2', repalle: '3', miryalaguda: '4', karnool: '5', bihar: '6' },
