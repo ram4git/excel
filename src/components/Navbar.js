@@ -6,7 +6,7 @@ export default function Navbar () {
     <div className='container navbar'>
       <Link to='/'>Home</Link>
       <nav className='nav-links'>
-        <Link to='/settings'>Price Calculation</Link>
+        <Link to='/price'>Price Calculation</Link>
 				<Link to='/reverse'>Price Reverse Calculation</Link>
         <Link to='/distances'>Distances</Link>
       </nav>

@@ -304,7 +304,9 @@ table > input {
   text-align: center;
 }
 
-
+h1.large-header {
+    color: #16a085;
+}
 
 .btnGroup {
   display: flex;

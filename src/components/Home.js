@@ -19,10 +19,9 @@ export default class Home extends Component {
     return (
       <div className='container'>
         <h1 className='large-header'>
-          Dashboard
+          Paddy Price Analytics
         </h1>
         <h3 className='header text-center'>
-          Active Requests Requiring Immediate Attention
         </h3>
         <div className='home-grid'>
           {teamNames.map((id) => (

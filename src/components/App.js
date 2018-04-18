@@ -22,8 +22,8 @@ const BrokenCalculation = (props) => (
   </DynamicImport>
 )
 
-const Settings = (props) => (
-  <DynamicImport load={() => import('./Settings')}>
+const PriceCalculation = (props) => (
+  <DynamicImport load={() => import('./PriceCalculation')}>
     {(Component) => Component === null
       ? <Loading />
       : <Component {...props} />}
@@ -58,7 +58,7 @@ class App extends Component {
               <Route path='/' exact component={Home} />
               <Route path='/broken' component={BrokenCalculation} />
 							<Route path='/reverse' component={ReverseCalcuation} />
-              <Route path='/settings' component={Settings} />
+              <Route path='/price' component={PriceCalculation} />
               <Route path='/distances' component={Distances} />
               <Route path='/request/:id' exact component={Request} />
               <Route render={() => <h1 className='text-center'>Four oh Four.</h1>} />
