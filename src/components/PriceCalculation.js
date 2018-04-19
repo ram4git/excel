@@ -10,7 +10,16 @@ import FlatButton from 'material-ui/FlatButton';
 import TextField from 'material-ui/TextField';
 import SelectField from 'material-ui/SelectField';
 import MenuItem from 'material-ui/MenuItem';
-import { Statistic, Message } from 'semantic-ui-react'
+import { Statistic, Message } from 'semantic-ui-react';
+import {
+    Accordion,
+    AccordionItem,
+    AccordionItemTitle,
+    AccordionItemBody,
+} from 'react-accessible-accordion';
+import 'react-accessible-accordion/dist/fancy-example.css';
+
+
 import ReactDataGrid from 'react-data-grid';
 
 import Moisture from './moisture';
@@ -105,7 +114,6 @@ export default class Settings extends Component {
   render() {
     const { loading } = this.state
 
-
     return (
       <div className='container'>
         <h1 className='small-header'>
@@ -113,11 +121,35 @@ export default class Settings extends Component {
         </h1>
         { this.renderErrorMsg() }
 				{ this.renderSelections() }
-        { this.renderByProducts() }
-        { this.renderByProductProfits() }
-        { this.renderPacking() }
-        { this.renderExpenses() }
-        { this.renderWeights() }
+        <Accordion>
+          <AccordionItem>
+              <AccordionItemTitle>
+                  <h3>By Product Weights</h3>
+              </AccordionItemTitle>
+              <AccordionItemBody>
+                { this.renderWeights() }
+              </AccordionItemBody>
+          </AccordionItem>
+          <AccordionItem>
+              <AccordionItemTitle>
+                  <h3>By Products Income</h3>
+              </AccordionItemTitle>
+              <AccordionItemBody>
+                { this.renderByProducts() }
+                { this.renderByProductProfits() }
+              </AccordionItemBody>
+          </AccordionItem>
+
+          <AccordionItem>
+              <AccordionItemTitle>
+                  <h3>Packaging Costs</h3>
+              </AccordionItemTitle>
+              <AccordionItemBody>
+                { this.renderPacking() }
+                { this.renderExpenses() }
+              </AccordionItemBody>
+          </AccordionItem>
+        </Accordion>
         { this.renderRicePrice() }
       </div>
     )
@@ -486,7 +518,7 @@ export default class Settings extends Component {
       <Card className='card priceCard'>
         <CardText>
           <div>
-            <Statistic.Group widths='two' size='tiny'>
+            <Statistic.Group widths='three' size='tiny'>
               <Statistic>
                 <Statistic.Value>{`₹${totalExpenseStr}`}</Statistic.Value>
                 <Statistic.Label>Total Expenses</Statistic.Label>
@@ -505,6 +537,7 @@ export default class Settings extends Component {
               floatingLabelText='Tax %'
               onChange={ this.onFieldChange.bind(this) }
               name='taxPc'
+              className='centerTaxField'
               value={ this.state.taxPc}
             /><br />
 
@@ -520,7 +553,16 @@ export default class Settings extends Component {
             </Statistic.Group>
           </div>
           <div>
-            { this.renderPriceWithFreight(finalPricePerQuintal) }
+          <Accordion>
+            <AccordionItem>
+                <AccordionItemTitle>
+                    <h3>Cost Matrix</h3>
+                </AccordionItemTitle>
+                <AccordionItemBody>
+                  { this.renderPriceWithFreight(finalPricePerQuintal) }
+                </AccordionItemBody>
+            </AccordionItem>
+          </Accordion>
           </div>
         </CardText>
       </Card>

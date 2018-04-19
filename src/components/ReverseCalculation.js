@@ -8,6 +8,14 @@ import SelectField from 'material-ui/SelectField';
 import MenuItem from 'material-ui/MenuItem';
 import { Statistic, Message } from 'semantic-ui-react'
 import ReactDataGrid from 'react-data-grid';
+import {
+    Accordion,
+    AccordionItem,
+    AccordionItemTitle,
+    AccordionItemBody,
+} from 'react-accessible-accordion';
+import 'react-accessible-accordion/dist/fancy-example.css';
+
 
 import Moisture from './moisture';
 import Cities from './sourcePoints';
@@ -103,14 +111,27 @@ export default class ReverseCalculation extends Component {
 				</h1>
 				{ this.renderSelections() }
 				{ this.renderPaddyPrice() }
-
-				{ this.renderByProducts() }
-				{ this.renderByProductProfits() }
-				{ this.renderPacking() }
-				{ this.renderExpenses() }
-
-
-
+				<Accordion>
+					<AccordionItem>
+							<AccordionItemTitle>
+									<h3>By Product Income</h3>
+							</AccordionItemTitle>
+							<AccordionItemBody>
+								{ this.renderByProducts() }
+								{ this.renderByProductProfits() }
+								</AccordionItemBody>
+					</AccordionItem>
+					<AccordionItem>
+							<AccordionItemTitle>
+									<h3>Packaging Cost</h3>
+							</AccordionItemTitle>
+							<AccordionItemBody>
+								{ this.renderPacking() }
+								{ this.renderExpenses() }
+								</AccordionItemBody>
+					</AccordionItem>
+				</Accordion>
+        { this.renderDesiredPaddyCost() }
 			</div>
 		)
 	}
@@ -208,7 +229,7 @@ export default class ReverseCalculation extends Component {
 				<CardTitle title="Total Expenses"  className='cartTitle'/>
 				<CardText>
 					<div>
-						<Statistic.Group widths='four' size='tiny'>
+						<Statistic.Group widths='three' size='tiny'>
 							<Statistic>
 								<Statistic.Value>{`₹${ricePackagingCostStr}`}</Statistic.Value>
 								<Statistic.Label>Rice Packaging Cost</Statistic.Label>
@@ -221,6 +242,23 @@ export default class ReverseCalculation extends Component {
 								<Statistic.Value>{`₹${millingPackagingCostStr}`}</Statistic.Value>
 								<Statistic.Label>Milling Bags Cost</Statistic.Label>
 							</Statistic>
+						</Statistic.Group>
+					</div>
+				</CardText>
+			</Card>
+		);
+	}
+
+	renderDesiredPaddyCost() {
+		const desiredPaddyPriceBeforeAMC = this.data.desiredPaddyPrice;
+		const desiredPaddyPriceBeforeAMCStr = Number.parseFloat(desiredPaddyPriceBeforeAMC.toFixed(2)).toLocaleString('en-IN');
+
+		return (
+			<Card className='card priceCard'>
+				<CardTitle title="Desired Paddy Price"  className='cartTitle'/>
+				<CardText>
+					<div>
+						<Statistic.Group widths='one'>
 							<Statistic>
 								<Statistic.Value>{`₹${desiredPaddyPriceBeforeAMCStr}`} </Statistic.Value>
 								<Statistic.Label>Desired Paddy Price</Statistic.Label>
@@ -284,6 +322,13 @@ export default class ReverseCalculation extends Component {
         <CardText>
           <div className='container two-column'>
             <div className='column-row'>
+							<TextField
+								hintText='10'
+								floatingLabelText='Hide Rice (KGs)'
+								onChange={ this.onFieldChange.bind(this) }
+								name='rice'
+								value={ this.state.rice}
+							/><br />
               <TextField
                 hintText='10'
                 floatingLabelText='Rejected (KGs)'
@@ -328,6 +373,14 @@ export default class ReverseCalculation extends Component {
               /><br />
             </div>
             <div className='column-row'>
+							<TextField
+								hintText='10'
+								floatingLabelText='Hide Rice (KGs)'
+								onChange={ this.onFieldChange.bind(this) }
+								disabled={true}
+								name='rice'
+								value={ this.state.rice}
+							/><br />
               <TextField
                 hintText='10'
                 floatingLabelText='Rejected Price'
@@ -383,7 +436,7 @@ export default class ReverseCalculation extends Component {
 		const { pricePerQnt, tax } = this.state;
 		const freightCharges = JSON.parse(localStorage.getItem('rows')) || Cities;
 		const cityFreighChargeRow = freightCharges.find( row => row.saleCity === this.state.atCity);
-		const freightCharge = cityFreighChargeRow.peddapuram;
+		const freightCharge = this.state.freightCharge || cityFreighChargeRow.peddapuram;
 
 		const costBeforeTax = ((pricePerQnt - freightCharge) / (100 + Number.parseFloat(tax)) * 100).toFixed(2);
 		const taxToPay = (costBeforeTax * tax / 100).toFixed(2);
@@ -396,30 +449,36 @@ export default class ReverseCalculation extends Component {
 		<Card className='card priceCard'>
 		  <CardText>
 		    <div>
-		      <Statistic.Group widths='three' size='tiny'>
-		        <Statistic>
-		          <Statistic.Value>{`₹ ${freightCharge}`} </Statistic.Value>
-		          <Statistic.Label>Freight Charge</Statistic.Label>
-		        </Statistic>
-					</Statistic.Group>
-					<TextField
-						hintText='1'
-						floatingLabelText='Tax'
-						onChange={ this.onFieldChange.bind(this) }
-						name='tax'
-						value={ this.state.tax}
-					/><br />
-
-					<Statistic.Group size='tiny'>
-		        <Statistic>
-		          <Statistic.Value>{`₹ ${taxToPay}`}</Statistic.Value>
-		          <Statistic.Label>5% Tax</Statistic.Label>
-		        </Statistic>
-		        <Statistic>
-		          <Statistic.Value>{`₹ ${costBeforeTax}`}</Statistic.Value>
-		          <Statistic.Label>Cost before Tax</Statistic.Label>
-		        </Statistic>
-		      </Statistic.Group>
+					<div className='container two-column'>
+						<div className='column-row'>
+							<TextField
+								hintText='10'
+								floatingLabelText='Freight Charge'
+								onChange={ this.onFieldChange.bind(this) }
+								name='freightCharge'
+								value={freightCharge}
+							/><br />
+						</div>
+						<div>
+							<TextField
+								hintText='1'
+								floatingLabelText='Tax'
+								onChange={ this.onFieldChange.bind(this) }
+								name='tax'
+								value={ this.state.tax}
+							/><br />
+						</div>
+						</div>
+						<Statistic.Group size='tiny' widths='two'>
+			        <Statistic>
+			          <Statistic.Value>{`₹ ${taxToPay}`}</Statistic.Value>
+			          <Statistic.Label>5% Tax</Statistic.Label>
+			        </Statistic>
+			        <Statistic>
+			          <Statistic.Value>{`₹ ${costBeforeTax}`}</Statistic.Value>
+			          <Statistic.Label>Cost before Tax</Statistic.Label>
+			        </Statistic>
+			      </Statistic.Group>
 		    </div>
 		  </CardText>
 		</Card>
