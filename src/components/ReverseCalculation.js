@@ -30,7 +30,7 @@ export default class ReverseCalculation extends Component {
 			chaki: 0.39,
 			bran: 5.81,
 			bran2: 0.89,
-			tax: 4,
+			tax: 0,
 			atCity: 'Vizag',
 			rejectedPrice: 2850,
 			smallBrokenPrice: 1750,
@@ -80,7 +80,9 @@ export default class ReverseCalculation extends Component {
 		const newValueNumber = Number.parseFloat(newValue);
 		if (Number.isNaN(newValueNumber && newValue !== '')) {
 			this.setState({
-				errorMsg: `Invalid number "${newValue}" entered for ${inputName}`
+				errorMsg: `Invalid number "${newValue}" entered for ${inputName}`,
+				[inputName]: 0,
+
 			})
 		} else {
 			this.setState({
@@ -169,8 +171,8 @@ export default class ReverseCalculation extends Component {
 	}
 
 	renderExpenses() {
-		const { rice, rejected, smallBroken, bigBroken, chaki, price75Kg } = this.state;
-		const { riceBagCapacity, brokenBagCapacity, millingBagCapacity } = this.state;
+		const { rice, rejected=0, smallBroken=0, bigBroken=0, chaki=0, price75Kg=0 } = this.state;
+		const { riceBagCapacity=25, brokenBagCapacity=50, millingBagCapacity=100 } = this.state;
 		const { riceBagPrice, brokenBagPrice, millingBagPrice } = this.state;
 
 		const paddyExpense = 100 * price75Kg;
@@ -179,9 +181,9 @@ export default class ReverseCalculation extends Component {
 		const noOfBrokenBags = ( rejected + bigBroken + smallBroken + chaki ) / brokenBagCapacity * 100;
 		const noOfMillingBags = 100;
 
-		const ricePackagingCost = noOfRiceBags * riceBagPrice;
-		const brokenPackagingCost = noOfBrokenBags * brokenBagPrice;
-		const millingPackagingCost = noOfMillingBags * millingBagPrice;
+		const ricePackagingCost = (noOfRiceBags * riceBagPrice) || 0;
+		const brokenPackagingCost = (noOfBrokenBags * brokenBagPrice) || 0;
+		const millingPackagingCost = (noOfMillingBags * millingBagPrice) || 0;
 
 		const riceCost = rice * this.data.costBeforeTax;
 		//procurmentCost = riceCost - packingCost + byProductProfit
@@ -383,7 +385,7 @@ export default class ReverseCalculation extends Component {
 		const cityFreighChargeRow = freightCharges.find( row => row.saleCity === this.state.atCity);
 		const freightCharge = cityFreighChargeRow.peddapuram;
 
-		const costBeforeTax = ((pricePerQnt - freightCharge) / (100 + tax) * 100).toFixed(2);
+		const costBeforeTax = ((pricePerQnt - freightCharge) / (100 + Number.parseFloat(tax)) * 100).toFixed(2);
 		const taxToPay = (costBeforeTax * tax / 100).toFixed(2);
 
 		this.data.costBeforeTax = costBeforeTax;

@@ -1,8 +1,8 @@
 {
   "name": "reactrouter-course-project",
   "version": "0.1.0",
+  "homepage": "./",
   "private": true,
-  "homepage": "https://tylermcginnis.com/projects/router-league/",
   "dependencies": {
     "immutability-helper": "^2.6.6",
     "material-ui": "^0.20.0",

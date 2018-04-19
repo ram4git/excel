@@ -85,7 +85,8 @@ export default class Settings extends Component {
     const newValueNumber = Number.parseFloat(newValue);
     if (Number.isNaN(newValueNumber && newValue !== '')) {
       this.setState({
-        errorMsg: `Invalid number "${newValue}" entered for ${inputName}`
+        errorMsg: `Invalid number "${newValue}" entered for ${inputName}`,
+        [inputName]: 0,
       })
     } else {
       this.setState({
@@ -547,7 +548,7 @@ export default class Settings extends Component {
     rowToReturn.peddapuram = (Number.parseFloat(rowToReturn.peddapuram) + Number.parseFloat(pricePerQuintal)).toFixed(2) ;
 
     Object.keys(rowToReturn).forEach(city => {
-      if(city === 'saleCity') {
+      if(city === 'saleCity' || city === 'peddapuram') {
         return;
       }
       rowToReturn[city] = (Number.parseFloat(rowToReturn[city]) +
