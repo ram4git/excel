@@ -29,7 +29,6 @@ export default class ReverseCalculation extends Component {
 			loading: true,
 			variety: 'bpt',
 			pricePerQnt: 3716.9,
-			moisture: 14,
 			cities: [],
 			rice: 36.96,
 			rejected: 3.26,
@@ -70,7 +69,14 @@ export default class ReverseCalculation extends Component {
 		});
 	}
 
-	handleDropdownChange = (key, event, index, value) => this.setState({[key]: value});
+  handleDropdownChange = (key, event, index, value) => {
+    this.setState({[key]: value});
+    if(key === 'variety') {
+      this.setState({
+        moisture: ''
+      });
+    }
+  }
 
 	handleMoistureChange(key, event, index, value) {
 		const moistureData = Moisture;
@@ -500,8 +506,9 @@ export default class ReverseCalculation extends Component {
 							value={this.state.variety}
 							onChange={this.handleDropdownChange.bind(this, 'variety')}
 							className='select-field' >
-							<MenuItem key={1} value='bpt' primaryText={`BPT`} />
-							<MenuItem key={2} value='swarna' primaryText={`SWARNA`} />
+              <MenuItem key={1} value='bpt' primaryText={`BPT`} />
+              <MenuItem key={2} value='1010White' primaryText={`1010 White`} />
+              <MenuItem key={3} value='1010PB' primaryText={`1010 PB`} />
 						</SelectField>
 						{ this.renderMoistureOptions() }
 						<TextField
@@ -526,17 +533,23 @@ export default class ReverseCalculation extends Component {
 	}
 
 	renderMoistureOptions() {
-		const menuItemArray = [];
-		menuItemArray.push(<MenuItem key={14} value={14} primaryText={`${14}`} />);
-		menuItemArray.push(<MenuItem key={17} value={17} primaryText={`${17}`} />);
-		menuItemArray.push(<MenuItem key={20} value={20} primaryText={`${20}`} />);
-		menuItemArray.push(<MenuItem key={22} value={22} primaryText={`${22}`} />);
-		menuItemArray.push(<MenuItem key={25} value={25} primaryText={`${25}`} />);
+    const moistureData = Moisture;
+    const moistureForGivenVariety = Moisture[this.state.variety];
+    const menuItemArray = [];
+    let firstItemValue = this.state.moisture;
+
+    Object.keys(moistureForGivenVariety).forEach( (varietyKey,idx) => {
+      menuItemArray.push(<MenuItem key={varietyKey} value={varietyKey} primaryText={`${varietyKey}`} />);
+      if( idx === 0) {
+        firstItemValue = varietyKey;
+      }
+
+    });
 
 		return(
 			<SelectField
 				floatingLabelText='Moisture %'
-				value={this.state.moisture}
+				value={firstItemValue}
 				onChange={this.handleMoistureChange.bind(this,'moisture')}
 				className='select-field'
 			>
